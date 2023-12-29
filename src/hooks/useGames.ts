@@ -3,9 +3,10 @@ import apiClient from '../services/api-client';
 import presetDataSet from '../services/dataset';
 import { CanceledError } from 'axios';
 
-interface Game {
+export interface Game {
   id: number;
   name: string;
+  background_image: string;
 }
 
 interface FetchGamesResponse {
@@ -29,8 +30,14 @@ const useGames = () => {
       })
       .catch((error) => {
         if (error instanceof CanceledError) return;
-        console.log('response is NOT successful');
-        setGames(presetDataSet.results);
+
+        // todo: убрать когда сделаю локал сторедж
+        if (error.message === 'Network Error') {
+          console.log('response is NOT successful');
+          setGames(presetDataSet.results);
+          return;
+        }
+
         setError(error.message);
       });
 
