@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import apiClient from '../services/api-client';
+import presetDataSet from '../services/dataset';
 import { Text } from '@chakra-ui/react';
 
 interface Game {
@@ -19,8 +20,16 @@ const GameGrid = () => {
   useEffect(() => {
     apiClient
       .get<FetchGamesResponse>('/games')
-      .then((response) => setGames(response.data.results))
-      .catch((error) => setError(error.message));
+      .then((response) => {
+        // todo: save to LocalStorage
+        console.log('response is successful');
+        setGames(response.data.results);
+      })
+      .catch((error) => {
+        console.log('response is NOT successful');
+        setGames(presetDataSet.results);
+        setError(error.message);
+      });
   });
 
   return (
