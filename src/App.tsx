@@ -11,16 +11,18 @@ function App() {
         lg: `"nav nav" "aside main" "footer footer"`,
       }}
     >
-      <GridItem area='nav'>
+      <GridItem as='header' area='nav'>
         <NavBar />
       </GridItem>
       <Show above='lg'>
-        <GridItem area='aside'>Aside</GridItem>
+        <GridItem as='aside' area='aside'>
+          Aside
+        </GridItem>
       </Show>
-      <GridItem area='main'>
+      <GridItem as='main' area='main'>
         <GameGrid />
       </GridItem>
-      <GridItem area='footer'>
+      <GridItem as='footer' area='footer'>
         <Footer />
       </GridItem>
     </Grid>
