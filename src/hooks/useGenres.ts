@@ -1,29 +1,20 @@
 import { useEffect, useState } from 'react';
 import apiClient from '../services/api-client';
-import presetDataSet from '../services/datasetGames';
+import presetDataSet from '../services/datasetGenres';
 import { CanceledError } from 'axios';
 
-export interface Platform {
+interface Genre {
   id: number;
   name: string;
-  slug: string;
 }
 
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-}
-
-interface FetchGamesResponse {
+interface FetchGenresResponse {
   count: number;
-  results: Game[];
+  results: Genre[];
 }
 
-const useGames = () => {
-  const [games, setGames] = useState<Game[]>([]);
+const useGenres = () => {
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 
@@ -32,11 +23,11 @@ const useGames = () => {
 
     setLoading(true);
     apiClient
-      .get<FetchGamesResponse>('/games', { signal: controller.signal })
+      .get<FetchGenresResponse>('/genres', { signal: controller.signal })
       .then((response) => {
         // todo: save to LocalStorage
         console.log('response is successful');
-        setGames(response.data.results);
+        setGenres(response.data.results);
         setLoading(false);
       })
       .catch((error) => {
@@ -45,7 +36,7 @@ const useGames = () => {
         // todo: убрать когда сделаю локал сторедж
         if (error.message === 'Network Error') {
           console.log('response is NOT successful');
-          setGames(presetDataSet.results);
+          setGenres(presetDataSet.results);
           setLoading(false);
           return;
         }
@@ -57,7 +48,7 @@ const useGames = () => {
     return () => controller.abort();
   }, []);
 
-  return { games, error, isLoading };
+  return { genres, error, isLoading };
 };
 
-export default useGames;
+export default useGenres;

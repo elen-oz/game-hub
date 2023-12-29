@@ -1,4 +1,4 @@
-import jsonData from './data.json';
+import jsonData from './genres.json';
 
 const presetDataSet = jsonData;
 
