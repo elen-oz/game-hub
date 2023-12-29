@@ -1,7 +1,7 @@
 import jsonData from './games.json';
 
-const presetDataSet = jsonData;
+const presetGamesSet = jsonData;
 
-console.log('dataset file', presetDataSet);
+console.log('dataset file', presetGamesSet);
 
-export default presetDataSet;
+export default presetGamesSet;

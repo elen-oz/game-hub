@@ -1,7 +1,7 @@
 import jsonData from './genres.json';
 
-const presetDataSet = jsonData;
+const presetGenresSet = jsonData;
 
-console.log('dataset file', presetDataSet);
+console.log('dataset file', presetGenresSet);
 
-export default presetDataSet;
+export default presetGenresSet;
