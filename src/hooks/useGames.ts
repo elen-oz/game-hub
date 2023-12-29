@@ -25,16 +25,19 @@ interface FetchGamesResponse {
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
+    setLoading(true);
     apiClient
       .get<FetchGamesResponse>('/games', { signal: controller.signal })
       .then((response) => {
         // todo: save to LocalStorage
         console.log('response is successful');
         setGames(response.data.results);
+        setLoading(false);
       })
       .catch((error) => {
         if (error instanceof CanceledError) return;
@@ -43,16 +46,18 @@ const useGames = () => {
         if (error.message === 'Network Error') {
           console.log('response is NOT successful');
           setGames(presetDataSet.results);
+          setLoading(false);
           return;
         }
 
         setError(error.message);
+        setLoading(false);
       });
 
     return () => controller.abort();
   }, []);
 
-  return { games, error };
+  return { games, error, isLoading };
 };
 
 export default useGames;
