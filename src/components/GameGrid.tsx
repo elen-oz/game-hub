@@ -1,36 +1,8 @@
-import { useEffect, useState } from 'react';
-import apiClient from '../services/api-client';
-import presetDataSet from '../services/dataset';
 import { Text } from '@chakra-ui/react';
-
-interface Game {
-  id: number;
-  name: string;
-}
-
-interface FetchGamesResponse {
-  count: number;
-  results: Game[];
-}
+import useGames from '../hooks/useGames';
 
 const GameGrid = () => {
-  const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    apiClient
-      .get<FetchGamesResponse>('/games')
-      .then((response) => {
-        // todo: save to LocalStorage
-        console.log('response is successful');
-        setGames(response.data.results);
-      })
-      .catch((error) => {
-        console.log('response is NOT successful');
-        setGames(presetDataSet.results);
-        setError(error.message);
-      });
-  });
+  const { games, error } = useGames();
 
   return (
     <>
