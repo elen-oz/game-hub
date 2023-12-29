@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import apiClient from '../services/api-client';
+import { AxiosRequestConfig, CanceledError } from 'axios';
+
 import presetGamesSet from '../services/datasetGames';
 import presetGenresSet from '../services/datasetGenres';
-import { AxiosRequestConfig, CanceledError } from 'axios';
+import presetPlatformsSet from '../services/datasetPlatforms';
 
 interface FetchResponse<T> {
   count: number;
@@ -43,8 +45,10 @@ const useData = <T>(
 
             if (endpoint === '/games') {
               setData(presetGamesSet.results as T[]);
-            } else {
+            } else if (endpoint === '/genres') {
               setData(presetGenresSet.results as T[]);
+            } else {
+              setData(presetPlatformsSet.results as T[]);
             }
 
             setLoading(false);
