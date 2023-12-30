@@ -1,8 +1,7 @@
-# game-hub
 
 [See Live Here](https://game-5d0l2isij-elen-oz.vercel.app/)
 
-##About
+## About
 
 Website with a list of games, sorted by different categories, filter by category, dynamic rendering.
 
